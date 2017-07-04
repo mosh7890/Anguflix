@@ -1,0 +1,43 @@
+.bannerTop {
+    background-color: white;
+}
+
+h3 {
+    display: inline-block;
+}
+
+.movie {
+    float: left;
+    width: 30%;
+    max-height: 700px;
+    margin: 8px;
+    background-color: white;
+}
+
+.movieImage,
+.movieDescription {
+    padding: 8px;
+}
+
+img {
+    width: 100%;
+    height: 200px;
+}
+
+/*.userMoviesList {
+    overflow: hidden;
+}*/
+
+.movies {
+    clear: both;
+    display: table;
+}
+
+body {
+    background-color: grey;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Oswald;
+}

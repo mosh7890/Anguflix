@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Anguflix</title>
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body ng-app="movieApp" ng-cloak>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-lg-10 col-lg-offset-1'>
+                <div class='userMoviesList' ng-controller="userMoviesCtrl">
+                    <div class='bannerTop'>
+                        <h1>My Collection</h1>
+                        <input type="text" ng-model="selectedTitle" placeholder='Search By Title.' />
+                        <select ng-model='selectedYear' ng-options="year for year in years">
+                             <option value="">Select Year</option>
+                        </select> {{ selectedYear }} <a ng-click="trashIconClick()"><i class="fa fa-trash fa-2x trashIcon" aria-hidden="true" ng-show="showTrashIcon"></i></a>
+                        <a ng-click="checkIconClick()"><i class="fa fa-check fa-2x showCheckIcon" aria-hidden="true" ng-show="showCheckIcon"></i></a>
+                        <h3>Currency Remaining:</h3>{{userCurrency.amount | currency}}
+                    </div>
+                    <div class="movies">
+                        <div class="movie" ng-repeat="movie in userMoviesList | filter: (selectedYear||undefined) | filter: selectedTitle track by $index">
+                            <div class="movieImage">
+                                <img ng-src="{{movie.img}}" />
+                            </div>
+                            <div class="movieDescription">
+                                <button type="button" class="btn btn-primary" ng-click="removeFromUserList(movie)" ng-show="showCheckIcon">Remove</button>
+                                <p>
+                                    <h3>{{movie.title}}</h3>, {{movie.year}}
+                                </p>
+                                <p>{{movie.descrShort}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="allMoviesList" ng-controller="allMoviesCtrl">
+                    <div class='bannerMid' ng-show="showMidBanner.check">
+                        <h1 class='text-center'>Select Movies From Database Below To Add To Your Collection</h1>
+                    </div>
+                    <hr>
+                    <div class='bannerBot'>
+                        <h1>All Movies</h1>
+                        <input type="text" ng-model="selectedTitle" placeholder="Search by Title">
+                    </div>
+                    <div class="movies">
+                        <div class="movie" ng-repeat="movie in allMoviesList | filter:{title:selectedTitle} track by $index" ng-click="addToUserList(movie)">
+                            <div class="movieImage">
+                                <img ng-src="{{movie.img}}" />
+                            </div>
+                            <div class="movieDescription">
+                                <p>
+                                    <h3>{{movie.title}}</h3>, {{movie.year}}
+                                </p>
+                                <p>{{movie.descrShort}}</p>
+                                <p>
+                                    <h3>Price:</h3>{{movie.price | currency}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type='text/javascript' src='angular\angular.js'></script>
+    <script type='text/javascript' src='app.js'></script>
+    <script type='text/javascript' src='userMoviesCtrl.js'></script>
+    <script type='text/javascript' src='allMoviesCtrl.js'></script>
+
+</body>
+
+</html>
